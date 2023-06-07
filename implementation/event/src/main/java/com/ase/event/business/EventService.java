@@ -68,7 +68,7 @@ public class EventService {
             throw new RuntimeException("ID is not correct");
         }
         Event event = iEventRepository.findEventByEventID(id);
-        return iEventRepository.findEventByEventID(id);
+        return event;
     }
 
     /**
