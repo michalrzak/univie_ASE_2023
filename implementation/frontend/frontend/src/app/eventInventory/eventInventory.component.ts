@@ -50,7 +50,7 @@ export class EventInventoryComponent implements OnInit {
     this.userID = this.getuserValue().id
     // this.loadAllEvents();
     this.loadAllEventsByOrganizerID(this.userID);
-    this.loadAttendance();
+    //this.loadAttendance();
 
   }
 

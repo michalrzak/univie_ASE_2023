@@ -51,7 +51,10 @@ public class EventService {
             LOGGER.error("OrganizerID is empty");
             throw new RuntimeException("OrganizerID is not correct");
         }
-        return iEventRepository.findAllByorganizerID(id);
+        List<Event> events = iEventRepository.findAllByorganizerID(id);
+        String ids = events.get(0).getEventID();
+        LOGGER.info("event mit ID:" + iEventRepository.findEventByeventID(ids));
+        return  events;
     }
 
     /**
@@ -187,13 +190,17 @@ public class EventService {
      */
     public void deleteEvent(String eventID) {
         LOGGER.debug("delete event {}", getEventsByID(eventID));
+        LOGGER.info("delete event {}", getEventsByID(eventID));
         if(eventID == null){
             LOGGER.error("EventID is empty");
             throw new RuntimeException("EventID not correct");
         }
         Event deletedEvent = iEventRepository.findEventByeventID(eventID);
+        LOGGER.info("event will be deleted"+ deletedEvent);
         iEventRepository.deleteById(eventID);
+        LOGGER.info("event will be deleted"+ deletedEvent);
         publisher.deleteEvent(deletedEvent);
+        LOGGER.info("event will be published"+ deletedEvent);
     }
 
 
