@@ -194,17 +194,12 @@ public class EventService {
             throw new RuntimeException("EventID not correct");
         }
 
-            Optional<Event> deletedEvent = iEventRepository.findById(eventID);
+        Optional<Event> deletedEvent = iEventRepository.findById(eventID);
+        if (deletedEvent .isPresent()) {
             Event deleteEvent = deletedEvent.get();
-
-            List<Event> events = iEventRepository.findAll();
-            LOGGER.info("alle events");
-            for(int i=0; i< events.size(); i++){
-                LOGGER.info(events.get(i).getEventID());
-            LOGGER.info("looking for" + eventID);
+            iEventRepository.deleteById(eventID);
+            publisher.deleteEvent(deleteEvent);
         }
-        iEventRepository.deleteById(eventID);
-        publisher.deleteEvent(deleteEvent);
     }
 
 
