@@ -10,9 +10,12 @@ export class AdminGuard implements CanActivate {
     private accountService: AccountService
   ) {}
 
+  public getuserValue() {
+    return this.accountService.userValue;
+  }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.accountService.userValue;
-    if (user?.role == "ADMIN") {
+    if (this.getuserValue()?.role === "ADMIN") {
       // authorised so return true
       return true;
     }

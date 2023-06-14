@@ -11,9 +11,12 @@ export class OrganizerGuard implements CanActivate {
     private accountService: AccountService
   ) {}
 
+  public getuserValue() {
+    return this.accountService.userValue;
+  }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.accountService.userValue;
-    if (user?.role === "ORGANIZER"/*(<any>user).values(UserType).includes("ORGANIZER")*/) {
+    if (this.getuserValue()?.role === "ORGANIZER") {
       // authorised so return true
       return true;
     }

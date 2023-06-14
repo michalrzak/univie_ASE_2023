@@ -10,9 +10,12 @@ export class AttendeeGuard implements CanActivate {
     private accountService: AccountService
   ) {}
 
+  public getuserValue() {
+    return this.accountService.userValue;
+  }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.accountService.userValue;
-    if (user?.role == "ATTENDEE") {
+    if (this.getuserValue()?.role === "ATTENDEE") {
       // authorised so return true
       return true;
     }

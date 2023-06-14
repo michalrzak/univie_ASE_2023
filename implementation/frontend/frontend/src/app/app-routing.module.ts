@@ -24,6 +24,7 @@ import {MaintenanceComponent} from "./maintenance/maintenance.component";
 import {FeedbackComponent} from "./feedback/feedback.component";
 import {ShowFeedbackComponent} from "./feedback/showFeedback.component";
 import {AnalyticReportEventComponent} from "./analyticReport/analyticReportEvent.component";
+import {AdminGuard} from "./interceptors/admin.guard";
 
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
@@ -31,16 +32,16 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const routes: Routes = [
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'eventInventory', component: EventInventoryComponent, canActivate: [AuthGuard]},
-  {path: 'addEvent', component: AddEventComponent, canActivate: [AuthGuard]},
-  {path: 'searchService', component: SearchServiceComponent, canActivate: [AuthGuard]},
+  {path: 'eventInventory', component: EventInventoryComponent, canActivate: [AuthGuard, OrganizerGuard]},
+  {path: 'addEvent', component: AddEventComponent, canActivate: [AuthGuard, OrganizerGuard]},
+  {path: 'searchService', component: SearchServiceComponent, canActivate: [AuthGuard, OrganizerGuard, AttendeeGuard]},
   {path: 'account', loadChildren: accountModule },
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
+  {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard, AttendeeGuard]},
   {path: 'updateEvent', component: UpdateEventComponent, canActivate: [AuthGuard]},
   {path: 'tagging', component: TaggingComponent, canActivate: [AuthGuard]},
-  {path: 'maintenance', component: MaintenanceComponent, canActivate: [AuthGuard]},
+  {path: 'maintenance', component: MaintenanceComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuard]},
   {path: 'showFeedback', component: ShowFeedbackComponent, canActivate: [AuthGuard]},
   {path: 'analyticReport', component: AnalyticReportEventComponent, canActivate: [AuthGuard]},
